@@ -1,0 +1,66 @@
+# Makefile para el proyecto Avatar con AvatarInnovador
+
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+
+# Archivos fuente
+SOURCES = main_con_avatar_innovador.cpp \
+          Ficha.cpp \
+          Camino.cpp \
+          Abismo.cpp \
+          Salida.cpp \
+          Personaje.cpp \
+          Avatar.cpp \
+          AvatarInnovador.cpp \
+          Tablero.cpp \
+          LogicaDeMovimiento.cpp \
+          VistaConsola.cpp \
+          Juego.cpp
+
+# Archivos objeto
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Ejecutable
+TARGET = avatar_innovador
+
+# Regla principal
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+  $(CXX) $(OBJECTS) -o $(TARGET)
+
+# Regla para compilar archivos .cpp a .o
+%.o: %.cpp
+  $(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Limpiar archivos generados
+clean:
+  rm -f $(OBJECTS) $(TARGET)
+
+# Regla para ejecutar el programa
+run: $(TARGET)
+  ./$(TARGET)
+
+# Crear archivo de datos de ejemplo
+data:
+  echo "1 1 1 1 0 0 0 1 1 1" > dataTablero.txt
+  echo "1 0 0 1 1 1 0 0 1 1" >> dataTablero.txt
+  echo "1 1 1 1 0 1 1 1 1 0" >> dataTablero.txt
+  echo "0 0 0 1 1 1 0 0 1 1" >> dataTablero.txt
+  echo "1 1 1 1 0 1 1 1 1 0" >> dataTablero.txt
+  echo "1 0 0 1 1 1 0 0 1 1" >> dataTablero.txt
+  echo "1 1 1 1 0 1 1 1 1 0" >> dataTablero.txt
+  echo "0 0 0 1 1 1 0 0 1 1" >> dataTablero.txt
+  echo "1 1 1 1 0 1 1 1 1 0" >> dataTablero.txt
+  echo "1 0 0 1 1 1 S 0 1 1" >> dataTablero.txt
+
+# Ayuda
+help:
+  @echo "Comandos disponibles:"
+  @echo "  make all    - Compilar el proyecto"
+  @echo "  make clean  - Limpiar archivos generados"
+  @echo "  make run    - Ejecutar el programa"
+  @echo "  make data   - Crear archivo de datos de ejemplo"
+  @echo "  make help   - Mostrar esta ayuda"
+
+.PHONY: all clean run data help
